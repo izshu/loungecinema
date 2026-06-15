@@ -1,172 +1,272 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LoungeCinema — бронирование</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/static/css/style.css">
-</head>
-<body class="booking-desk-page booking-layout-v3">
-  <div class="page-bg"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LoungeCinema — бронирование</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/css/style.css" />
+  </head>
+  <body class="booking-desk-page booking-layout-v3">
+    <div class="page-bg"></div>
 
-  <header class="site-header site-header-v3">
-    <div class="logo-block">
-      <span class="logo-box">LC</span>
-      <div>
-        <div class="logo-title">LoungeCinema</div>
-        <div class="logo-sub">Онлайн-запись</div>
+    <header class="site-header site-header-v3">
+      <div class="logo-block">
+        <span class="logo-box">LC</span>
+        <div>
+          <div class="logo-title">LoungeCinema</div>
+          <div class="logo-sub">Онлайн-запись</div>
+        </div>
       </div>
-    </div>
-    <nav class="top-progress" id="top-progress" aria-label="Шаги бронирования">
-      <span class="top-progress-step" data-step="hall"><span class="step-num">1</span> Зал</span>
-      <span class="top-progress-arrow">→</span>
-      <span class="top-progress-step" data-step="tariff"><span class="step-num">2</span> Пакет</span>
-      <span class="top-progress-arrow">→</span>
-      <span class="top-progress-step" data-step="time"><span class="step-num">3</span> Дата и время</span>
-      <span class="top-progress-arrow">→</span>
-      <span class="top-progress-step" data-step="contacts"><span class="step-num">4</span> Контакты</span>
-    </nav>
-    <a href="/admin" class="link-admin">Админ</a>
-  </header>
+      <nav
+        class="top-progress"
+        id="top-progress"
+        aria-label="Шаги бронирования"
+      >
+        <span class="top-progress-step" data-step="hall"
+          ><span class="step-num">1</span> Зал</span
+        >
+        <span class="top-progress-arrow">→</span>
+        <span class="top-progress-step" data-step="tariff"
+          ><span class="step-num">2</span> Пакет</span
+        >
+        <span class="top-progress-arrow">→</span>
+        <span class="top-progress-step" data-step="time"
+          ><span class="step-num">3</span> Дата и время</span
+        >
+        <span class="top-progress-arrow">→</span>
+        <span class="top-progress-step" data-step="contacts"
+          ><span class="step-num">4</span> Контакты</span
+        >
+      </nav>
+    </header>
 
-  <div class="booking-desk">
-    <!-- Левая: залы -->
-    <aside class="desk-col desk-col-left">
-      <h2 class="desk-section-title">Зал</h2>
-      <div class="hall-cards" id="hall-cards" aria-label="Выбор зала"></div>
-    </aside>
+    <div class="booking-desk">
+      <!-- Левая: залы -->
+      <aside class="desk-col desk-col-left">
+        <h2 class="desk-section-title">Зал</h2>
+        <div class="hall-cards" id="hall-cards" aria-label="Выбор зала"></div>
+      </aside>
 
-    <!-- Центр: пакеты + флаер + дата -->
-    <main class="desk-col desk-col-center" id="center-panel">
-      <h2 class="desk-section-title">Пакет</h2>
-      <p class="desk-hint muted" id="center-hint" hidden>Сначала выберите зал слева</p>
+      <!-- Центр: пакеты + флаер + дата -->
+      <main class="desk-col desk-col-center" id="center-panel">
+        <h2 class="desk-section-title">Пакет</h2>
+        <p class="desk-hint muted" id="center-hint" hidden>
+          Сначала выберите зал слева
+        </p>
 
-      <div class="center-flow" id="center-flow">
-        <div class="center-lists" id="tariff-sections">
-          <section class="tariff-block" id="block-hourly">
-            <h3 class="tariff-block-title">1 час аренды</h3>
-            <ul class="tariff-list" id="list-hourly"></ul>
-          </section>
+        <div class="center-flow" id="center-flow">
+          <div class="center-lists" id="tariff-sections">
+            <section class="tariff-block" id="block-hourly">
+              <h3 class="tariff-block-title">1 час аренды</h3>
+              <ul class="tariff-list" id="list-hourly"></ul>
+            </section>
 
-          <section class="tariff-block" id="block-rent">
-            <h3 class="tariff-block-title">Пакеты аренды</h3>
-            <ul class="tariff-list" id="list-rent"></ul>
-          </section>
+            <section class="tariff-block" id="block-rent">
+              <h3 class="tariff-block-title">Пакеты аренды</h3>
+              <ul class="tariff-list" id="list-rent"></ul>
+            </section>
 
-          <section class="tariff-block" id="block-date">
-            <h3 class="tariff-block-title">Свидание</h3>
-            <p class="tariff-block-note muted">Фиксированная цена на двоих</p>
-            <ul class="tariff-list" id="list-date"></ul>
-          </section>
-        </div>
-
-        <div class="tariff-preview" id="tariff-preview" hidden>
-          <div class="tariff-preview-image-wrap" id="preview-image-wrap" title="Нажмите, чтобы увеличить">
-            <img id="preview-image" src="" alt="" loading="lazy">
+            <section class="tariff-block" id="block-date">
+              <h3 class="tariff-block-title">Свидание</h3>
+              <p class="tariff-block-note muted">Фиксированная цена на двоих</p>
+              <ul class="tariff-list" id="list-date"></ul>
+            </section>
           </div>
-          <p class="preview-zoom-hint muted">Нажмите на фото, чтобы увеличить</p>
-          <div class="tariff-preview-text">
-            <h3 id="preview-name"></h3>
-            <p class="preview-meta" id="preview-meta"></p>
-            <p class="preview-note muted" id="preview-note" hidden></p>
-          </div>
-        </div>
 
-        <div class="datetime-section" id="datetime-section" hidden>
-          <h2 class="desk-section-title">Дата</h2>
-          <div class="calendar-wrap">
-            <div class="calendar-nav">
-              <button type="button" id="cal-prev" aria-label="Назад">‹</button>
-              <span id="cal-title"></span>
-              <button type="button" id="cal-next" aria-label="Вперёд">›</button>
+          <div class="tariff-preview" id="tariff-preview" hidden>
+            <div
+              class="tariff-preview-image-wrap"
+              id="preview-image-wrap"
+              title="Нажмите, чтобы увеличить"
+            >
+              <img id="preview-image" src="" alt="" loading="lazy" />
             </div>
-            <div class="calendar-grid" id="calendar"></div>
+            <p class="preview-zoom-hint muted">
+              Нажмите на фото, чтобы увеличить
+            </p>
+            <div class="tariff-preview-text">
+              <h3 id="preview-name"></h3>
+              <p class="preview-meta" id="preview-meta"></p>
+              <p class="preview-note muted" id="preview-note" hidden></p>
+            </div>
           </div>
 
-          <p class="slots-label" id="slots-label">Выберите дату</p>
-          <div class="slots slots-large" id="slots"></div>
+          <div class="datetime-section" id="datetime-section" hidden>
+            <h2 class="desk-section-title">Дата</h2>
+            <div class="calendar-wrap">
+              <div class="calendar-nav">
+                <button type="button" id="cal-prev" aria-label="Назад">
+                  ‹
+                </button>
+                <span id="cal-title"></span>
+                <button type="button" id="cal-next" aria-label="Вперёд">
+                  ›
+                </button>
+              </div>
+              <div class="calendar-grid" id="calendar"></div>
+            </div>
 
-          <div class="busy-block" id="busy-block" hidden>
-            <p class="busy-title">Занято:</p>
-            <div class="busy-list" id="busy-list"></div>
+            <p class="slots-label" id="slots-label">Выберите дату</p>
+            <div class="slots slots-large" id="slots"></div>
+
+            <div class="busy-block" id="busy-block" hidden>
+              <p class="busy-title">Занято:</p>
+              <div class="busy-list" id="busy-list"></div>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
 
-    <!-- Правая: гости + сводка + CTA -->
-    <aside class="desk-col desk-col-right" id="right-panel">
-      <div class="right-panel-inner">
-        <div class="right-extras" id="right-extras" hidden>
-          <h2 class="desk-section-title">Гости</h2>
-          <div class="guests-stepper" id="guests-row">
-            <button type="button" class="stepper-btn" id="guests-minus" aria-label="Меньше гостей">−</button>
-            <span class="stepper-value" id="guests-value">2</span>
-            <button type="button" class="stepper-btn" id="guests-plus" aria-label="Больше гостей">+</button>
+      <!-- Правая: гости + сводка + CTA -->
+      <aside class="desk-col desk-col-right" id="right-panel">
+        <div class="right-panel-inner">
+          <div class="right-extras" id="right-extras" hidden>
+            <h2 class="desk-section-title">Гости</h2>
+            <div class="guests-stepper" id="guests-row">
+              <button
+                type="button"
+                class="stepper-btn"
+                id="guests-minus"
+                aria-label="Меньше гостей"
+              >
+                −
+              </button>
+              <span class="stepper-value" id="guests-value">2</span>
+              <button
+                type="button"
+                class="stepper-btn"
+                id="guests-plus"
+                aria-label="Больше гостей"
+              >
+                +
+              </button>
+            </div>
+            <p class="hint" id="guests-hint"></p>
+
+            <h2 class="desk-section-title extras-title">Дополнительно</h2>
+            <label class="toggle-switch">
+              <input type="checkbox" id="hookah" />
+              <span class="toggle-track"></span>
+              <span class="toggle-label"
+                >Кальян (+<span id="hookah-price">1100</span> ₽)</span
+              >
+            </label>
           </div>
-          <p class="hint" id="guests-hint"></p>
 
-          <h2 class="desk-section-title extras-title">Дополнительно</h2>
-          <label class="toggle-switch">
-            <input type="checkbox" id="hookah">
-            <span class="toggle-track"></span>
-            <span class="toggle-label">Кальян (+<span id="hookah-price">1100</span> ₽)</span>
+          <div class="summary-box right-summary" id="right-summary">
+            <div class="summary" id="summary">
+              <p class="muted">Выберите зал и пакет</p>
+            </div>
+            <p class="price-breakdown muted" id="price-breakdown"></p>
+            <div class="summary-total" id="summary-total" hidden>
+              <span>Итого</span>
+              <strong id="total-price">—</strong>
+            </div>
+            <p class="cta-hint muted" id="cta-hint"></p>
+            <button
+              type="button"
+              class="btn-primary btn-wide btn-cta"
+              id="btn-contacts"
+              disabled
+            >
+              Далее → контакты
+            </button>
+          </div>
+
+          <ul class="mini-checklist" id="mini-checklist" aria-label="Прогресс">
+            <li class="mini-check-item" data-step="hall">зал выбран</li>
+            <li class="mini-check-item" data-step="tariff">пакет выбран</li>
+            <li class="mini-check-item" data-step="time">дата выбрана</li>
+            <li class="mini-check-item" data-step="slot">время выбрано</li>
+            <li class="mini-check-item" data-step="guests">гости указаны</li>
+          </ul>
+
+          <div class="desk-contacts" id="contact-block"></div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="toast-hint" id="toast-hint" hidden role="status"></div>
+
+    <div class="lightbox-overlay" id="image-lightbox" hidden>
+      <button
+        type="button"
+        class="lightbox-close"
+        id="lightbox-close"
+        aria-label="Закрыть"
+      >
+        ×
+      </button>
+      <button
+        type="button"
+        class="lightbox-nav lightbox-prev"
+        id="lightbox-prev"
+        aria-label="Назад"
+        hidden
+      >
+        ‹
+      </button>
+      <button
+        type="button"
+        class="lightbox-nav lightbox-next"
+        id="lightbox-next"
+        aria-label="Вперёд"
+        hidden
+      >
+        ›
+      </button>
+      <div class="lightbox-content">
+        <img id="lightbox-image" src="" alt="" />
+      </div>
+      <p class="lightbox-counter" id="lightbox-counter" hidden></p>
+    </div>
+
+    <div class="modal-overlay" id="contact-modal" hidden>
+      <div class="modal-card">
+        <button
+          type="button"
+          class="modal-close"
+          data-close="contact-modal"
+          aria-label="Закрыть"
+        >
+          ×
+        </button>
+        <h3>Оформление брони</h3>
+        <form id="booking-form" class="form">
+          <label
+            >Имя
+            <input
+              type="text"
+              name="client_name"
+              required
+              minlength="2"
+              autocomplete="name"
+          /></label>
+          <label
+            >Телефон
+            <input
+              type="tel"
+              name="phone"
+              required
+              placeholder="+7 914 ..."
+              autocomplete="tel"
+          /></label>
+          <label
+            >Комментарий
+            <textarea name="note" rows="2" placeholder="Пожелания"></textarea>
           </label>
-        </div>
-
-        <div class="summary-box right-summary" id="right-summary">
-          <div class="summary" id="summary"><p class="muted">Выберите зал и пакет</p></div>
-          <p class="price-breakdown muted" id="price-breakdown"></p>
-          <div class="summary-total" id="summary-total" hidden>
-            <span>Итого</span>
-            <strong id="total-price">—</strong>
-          </div>
-          <p class="cta-hint muted" id="cta-hint"></p>
-          <button type="button" class="btn-primary btn-wide btn-cta" id="btn-contacts" disabled>
-            Далее → контакты
+          <p class="error" id="form-error" hidden></p>
+          <button type="submit" class="btn-primary btn-wide">
+            Забронировать
           </button>
-        </div>
-
-        <ul class="mini-checklist" id="mini-checklist" aria-label="Прогресс">
-          <li class="mini-check-item" data-step="hall">зал выбран</li>
-          <li class="mini-check-item" data-step="tariff">пакет выбран</li>
-          <li class="mini-check-item" data-step="time">дата выбрана</li>
-          <li class="mini-check-item" data-step="slot">время выбрано</li>
-          <li class="mini-check-item" data-step="guests">гости указаны</li>
-        </ul>
-
-        <div class="desk-contacts" id="contact-block"></div>
+        </form>
       </div>
-    </aside>
-  </div>
-
-  <div class="toast-hint" id="toast-hint" hidden role="status"></div>
-
-  <div class="lightbox-overlay" id="image-lightbox" hidden>
-    <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Закрыть">×</button>
-    <button type="button" class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Назад" hidden>‹</button>
-    <button type="button" class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Вперёд" hidden>›</button>
-    <div class="lightbox-content">
-      <img id="lightbox-image" src="" alt="">
     </div>
-    <p class="lightbox-counter" id="lightbox-counter" hidden></p>
-  </div>
 
-  <div class="modal-overlay" id="contact-modal" hidden>
-    <div class="modal-card">
-      <button type="button" class="modal-close" data-close="contact-modal" aria-label="Закрыть">×</button>
-      <h3>Оформление брони</h3>
-      <form id="booking-form" class="form">
-        <label>Имя <input type="text" name="client_name" required minlength="2" autocomplete="name"></label>
-        <label>Телефон <input type="tel" name="phone" required placeholder="+7 914 ..." autocomplete="tel"></label>
-        <label>Комментарий <textarea name="note" rows="2" placeholder="Пожелания"></textarea></label>
-        <p class="error" id="form-error" hidden></p>
-        <button type="submit" class="btn-primary btn-wide">Забронировать</button>
-      </form>
-    </div>
-  </div>
-
-  <script src="/static/js/booking.js"></script>
-</body>
+    <script src="/static/js/booking.js"></script>
+  </body>
 </html>
