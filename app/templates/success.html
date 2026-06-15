@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Бронь принята — LoungeCinema</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="page-bg"></div>
+  <div class="center-page">
+    <div class="success-card">
+      <h1 style="font-weight:800;text-transform:uppercase">Заявка отправлена</h1>
+      <p id="success-details" class="muted">Мы свяжемся с вами для подтверждения.</p>
+      <a href="/" class="btn-primary">Новая запись</a>
+    </div>
+  </div>
+  <script>
+    const raw = sessionStorage.getItem('lastBooking');
+    if (raw) {
+      const b = JSON.parse(raw);
+      document.getElementById('success-details').textContent =
+        `${b.tariff_name}, зал «${b.hall_name}», ${new Date(b.start_at).toLocaleString('ru-RU')}. Сумма: ${b.total_price.toLocaleString('ru-RU')} ₽`;
+      sessionStorage.removeItem('lastBooking');
+    }
+  </script>
+</body>
+</html>
